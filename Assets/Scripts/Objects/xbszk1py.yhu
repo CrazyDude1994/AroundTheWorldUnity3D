@@ -31,8 +31,8 @@ public class Planet : MonoBehaviour {
             triangles.Add(i + 2);
         }
         triangles.Add(0);
-        triangles.Add(vertices.Count - 1);
         triangles.Add(1);
+        triangles.Add(360);
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -68,11 +68,11 @@ public class Planet : MonoBehaviour {
     {
         if (isDebug)
         {
-            for (int i = 1; i < vertices.Count - 1; i++)
+            for (int i = 0; i < vertices.Count - 1; i++)
             {
                 Debug.DrawLine(gameObject.transform.position + vertices[i], gameObject.transform.position + vertices[i + 1]);
             }
-            Debug.DrawLine(gameObject.transform.position + vertices[1], gameObject.transform.position + vertices[vertices.Count - 1]); //skip drawing last vertex
+            Debug.DrawLine(gameObject.transform.position + vertices[0], gameObject.transform.position + vertices[vertices.Count - 1]); //skip drawing last vertex
         }
 	}
 }

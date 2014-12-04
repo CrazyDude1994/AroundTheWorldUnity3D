@@ -22,15 +22,13 @@ public class Planet : MonoBehaviour {
             vertices[i] = new Vector3(position.x, position.y);
         }
 
-        triangles = new int[vertices.Length * 3];
-        for (int i = 0; i < triangles.Length - 100; i++)
+        triangles = new int[vertices.Length];
+        for (int i = 0; i < vertices.Length; i++2)
         {
             triangles[i] = 0;
-            triangles[i + 1] = i + 1;
-            triangles[i + 2] = i + 2;
+            triangles
         }
         mesh.vertices = vertices;
-        mesh.triangles = triangles;
         GetComponent<MeshFilter>().mesh = mesh;
 	}
 

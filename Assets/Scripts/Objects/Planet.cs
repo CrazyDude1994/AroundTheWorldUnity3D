@@ -11,6 +11,7 @@ public class Planet : MonoBehaviour {
     private float[] hills = new float[360];
     private List<Vector3> vertices = new List<Vector3>();
     private List<int> triangles = new List<int>();
+    private Vector2[] collisionPoints = new Vector2[360];
 
 	void Start ()
     {
@@ -22,6 +23,7 @@ public class Planet : MonoBehaviour {
         {
             Vector2 position = getXYFromRadius(i, planetRadius, hills[i]);
             vertices.Add(new Vector3(position.x, position.y));
+            collisionPoints[i] = position;
         }
 
         for (int i = 0; i < vertices.Count - 2; i++)
@@ -35,6 +37,9 @@ public class Planet : MonoBehaviour {
         triangles.Add(1);
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
+        mesh.name = "PlanetMesh";
+        PolygonCollider2D collider = gameObject.AddComponent<PolygonCollider2D>();
+        collider.SetPath(0, collisionPoints);
         GetComponent<MeshFilter>().mesh = mesh;
 	}
 

@@ -18,7 +18,7 @@ public class Planet : MonoBehaviour {
         generateHeightMap(hills, 0, 359, 360, rougness);
 
         Mesh mesh = new Mesh();
-        vertices.Add(gameObject.transform.position);
+        vertices.Add(Vector3.zero);
         for (int i = 0; i < hills.Length; i++)
         {
             Vector2 position = getXYFromRadius(i, planetRadius, hills[i]);

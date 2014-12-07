@@ -7,6 +7,7 @@ public class Planet : MonoBehaviour {
     public float rougness = 0.1f;
     public float planetRadius = 100f;
     public bool isDebug = true;
+    public int mass = 10000;
 
     private float[] hills = new float[360];
     private List<Vector3> vertices = new List<Vector3>();

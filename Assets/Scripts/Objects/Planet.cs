@@ -93,6 +93,7 @@ public class Planet : MonoBehaviour {
         }
 	}
 
+
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(gameObject.transform.position, planetRadius);

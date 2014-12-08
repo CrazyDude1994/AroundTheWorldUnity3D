@@ -7,6 +7,7 @@ public class PhysicObject : MonoBehaviour {
 
 	void Start ()
     {
+        gameObject.rigidbody2D.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
 	}
 	
 	void Update ()
@@ -25,6 +26,22 @@ public class PhysicObject : MonoBehaviour {
             Vector3 height = gameObject.transform.position - currentPlanet.transform.position;
             float g = 6.67428f * (currentPlanet.mass / Mathf.Pow(height.magnitude, 2));
             gameObject.rigidbody2D.AddForce(force * (g * Time.deltaTime) * gameObject.rigidbody2D.mass, ForceMode2D.Force);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Planet")
+        {
+            currentPlanet = null;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Planet")
+        {
+            currentPlanet = collider.gameObject.GetComponent<Planet>();
         }
     }
 

@@ -8,15 +8,17 @@ public class Planet : MonoBehaviour {
     public float planetRadius = 100f;
     public bool isDebug = true;
     public int mass = 10000;
-    public int affectRadius = 110;
+    public int planetRandomSeed = 0;
 
     private float[] hills = new float[360];
     private List<Vector3> vertices = new List<Vector3>();
     private List<int> triangles = new List<int>();
     private Vector2[] collisionPoints = new Vector2[360];
+    private Vector2[] uv;
 
 	void Start ()
     {
+        Random.seed = planetRandomSeed;
         generateHeightMap(hills, 0, 359, 360, rougness);
 
         Mesh mesh = new Mesh();
@@ -37,8 +39,16 @@ public class Planet : MonoBehaviour {
         triangles.Add(0);
         triangles.Add(vertices.Count - 1);
         triangles.Add(1);
+        uv = new Vector2[vertices.Count];
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            uv[i] = new Vector2(0.5f + (vertices[i].x) / (2 * planetRadius),
+                                0.5f + (vertices[i].y) / (2 * planetRadius));
+        }
         mesh.vertices = vertices.ToArray();
+        mesh.uv = uv;
         mesh.triangles = triangles.ToArray();
+        mesh.RecalculateNormals();
         mesh.name = "PlanetMesh";
         PolygonCollider2D collider = gameObject.AddComponent<PolygonCollider2D>();
         collider.SetPath(0, collisionPoints);
@@ -86,6 +96,5 @@ public class Planet : MonoBehaviour {
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(gameObject.transform.position, planetRadius);
-        Gizmos.DrawWireSphere(gameObject.transform.position, affectRadius);
     }
 }

@@ -8,6 +8,7 @@ public class Planet : MonoBehaviour {
     public float planetRadius = 100f;
     public bool isDebug = true;
     public int mass = 10000;
+    public int affectRadius = 110;
 
     private float[] hills = new float[360];
     private List<Vector3> vertices = new List<Vector3>();
@@ -85,5 +86,6 @@ public class Planet : MonoBehaviour {
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(gameObject.transform.position, planetRadius);
+        Gizmos.DrawWireSphere(gameObject.transform.position, affectRadius);
     }
 }

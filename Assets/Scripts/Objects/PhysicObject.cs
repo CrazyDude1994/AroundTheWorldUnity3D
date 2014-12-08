@@ -24,7 +24,6 @@ public class PhysicObject : MonoBehaviour {
             Vector2 diff = planetPosition - position;
             Vector2 force = diff.normalized;
             float g = 6.67428f * (currentPlanet.mass / Mathf.Pow(currentPlanet.planetRadius, 2));
-            Debug.Log(g);
             gameObject.rigidbody2D.AddForce(force * (g * Time.deltaTime) * gameObject.rigidbody2D.mass, ForceMode2D.Force);
         }
     }

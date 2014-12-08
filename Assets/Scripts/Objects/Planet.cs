@@ -81,4 +81,9 @@ public class Planet : MonoBehaviour {
             Debug.DrawLine(gameObject.transform.position + vertices[1], gameObject.transform.position + vertices[vertices.Count - 1]); //skip drawing last vertex
         }
 	}
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gameObject.transform.position, planetRadius);
+    }
 }

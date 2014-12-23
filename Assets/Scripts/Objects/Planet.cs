@@ -8,7 +8,9 @@ public class Planet : MonoBehaviour {
     public float planetRadius = 100f;
     public bool isDebug = true;
     public int mass = 10000;
+    public float gravityMultiplier = 1.0f;
     public int planetRandomSeed = 0;
+    public float depth = 5.0f;
 
     private float[] hills = new float[360];
     private List<Vector3> vertices = new List<Vector3>();
@@ -22,29 +24,52 @@ public class Planet : MonoBehaviour {
         generateHeightMap(hills, 0, 359, 360, rougness);
 
         Mesh mesh = new Mesh();
+        //Generate front circle
         vertices.Add(Vector3.zero);
         for (int i = 0; i < hills.Length; i++)
         {
             Vector2 position = getXYFromRadius(i, planetRadius, hills[i]);
-            vertices.Add(new Vector3(position.x, position.y));
+            vertices.Add(new Vector3(position.x, position.y, gameObject.transform.position.z));
             collisionPoints[i] = position;
+
+            vertices.Add(new Vector3(position.x, position.y, depth));
         }
 
-        for (int i = 0; i < vertices.Count - 2; i++)
+        //Add front circle triangles
+        for (int i = 0; i < vertices.Count - 4; i+=2)
         {
             triangles.Add(0);
             triangles.Add(i + 1);
+            triangles.Add(i + 3);
+
+            triangles.Add(i + 1);
             triangles.Add(i + 2);
+            triangles.Add(i + 3);
+
+            triangles.Add(i + 3);
+            triangles.Add(i + 2);
+            triangles.Add(i + 4);
         }
         triangles.Add(0);
-        triangles.Add(vertices.Count - 1);
+        triangles.Add(vertices.Count - 2);
         triangles.Add(1);
+
+        triangles.Add(1);
+        triangles.Add(vertices.Count - 2);
+        triangles.Add(vertices.Count - 1);
+
+        triangles.Add(1);
+        triangles.Add(vertices.Count - 1);
+        triangles.Add(2);
+
         uv = new Vector2[vertices.Count];
-        for (int i = 0; i < vertices.Count; i++)
+        for (int i = 0; i < vertices.Count; i+=2)
         {
             uv[i] = new Vector2(0.5f + (vertices[i].x) / (2 * planetRadius),
                                 0.5f + (vertices[i].y) / (2 * planetRadius));
+
         }
+
         mesh.vertices = vertices.ToArray();
         mesh.uv = uv;
         mesh.triangles = triangles.ToArray();

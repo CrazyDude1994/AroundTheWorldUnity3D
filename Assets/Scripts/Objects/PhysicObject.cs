@@ -7,7 +7,7 @@ public class PhysicObject : MonoBehaviour {
 
 	void Start ()
     {
-        //gameObject.rigidbody2D.AddRelativeForce(Vector2.up * 30, ForceMode2D.Impulse);
+        gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * 30, ForceMode2D.Impulse);
 	}
 
     void FixedUpdate()
@@ -21,7 +21,7 @@ public class PhysicObject : MonoBehaviour {
             Vector3 height = gameObject.transform.position - currentPlanet.transform.position;
             float g = 6.67428f * (currentPlanet.mass / Mathf.Pow(height.magnitude, 2));
             g *= currentPlanet.gravityMultiplier;
-            gameObject.rigidbody2D.AddForce(force * (g * Time.deltaTime) * gameObject.rigidbody2D.mass, ForceMode2D.Force);
+            gameObject.GetComponent<Rigidbody2D>().AddForce(force * (g * Time.deltaTime) * gameObject.GetComponent<Rigidbody2D>().mass, ForceMode2D.Force);
         }
     }
 
@@ -43,6 +43,6 @@ public class PhysicObject : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawLine(gameObject.transform.position, gameObject.rigidbody2D.velocity + gameObject.rigidbody2D.position); //draw velocity vector
+        Gizmos.DrawLine(gameObject.transform.position, gameObject.GetComponent<Rigidbody2D>().velocity + gameObject.GetComponent<Rigidbody2D>().position); //draw velocity vector
     }
 }

@@ -24,6 +24,6 @@ public class Controls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        gameObject.rigidbody2D.AddRelativeForce(force);
+        gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(force);
     }
 }

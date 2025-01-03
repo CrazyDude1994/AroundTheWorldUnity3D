@@ -43,6 +43,6 @@ public class PhysicObject : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawLine(gameObject.transform.position, gameObject.GetComponent<Rigidbody2D>().velocity + gameObject.GetComponent<Rigidbody2D>().position); //draw velocity vector
+        Gizmos.DrawLine(gameObject.transform.position, gameObject.GetComponent<Rigidbody2D>().linearVelocity + gameObject.GetComponent<Rigidbody2D>().position); //draw velocity vector
     }
 }
